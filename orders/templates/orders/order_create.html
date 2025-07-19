@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div>
+    <div class="text-center text-2xl font-semibold text-indigo-600 mb-6">Checkout</div>
+
+    <input type="hidden" class="w-[18rem] border border-gray-300 focus:border-none focus:border-white focus:ring focus:ring-indigo-200 outline-none px-4 py-2 rounded-md">
+    <form method="post">
+        {%csrf_token%}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+
+        {% for f in form %}
+
+        <div class="mb-4 flex items-center gap-4">
+            <div class="inline-block flex justify-start items-center w-[6rem]">
+                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+            </div>
+            {{ f }}
+        </div>
+
+        <div class="mb-4 text-sm text-red-500 w-[24rem] flex justify-end">{{ f.errors }}</div>
+
+        {% endfor %}
+        <div class="flex justify-center sm:justify-start">
+            <button type="submit" class="mt-2 bg-purple-600 hover:bg-purple-500 px-3 py-2 text-white rounded-md">Place Order</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

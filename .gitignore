@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+*.log
+
+# Virtual Environments
+venv/
+.env/
+.env.bak
+*.env
+.Python
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+*.pot
+*.mo
+
+#Migrations
+**/migrations/*.py
+**/migrations/*.pyc
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Docker
+*.pid
+*.tar
+*.log
+docker-compose.override.yml
+
+# Git
+.git/
+
+# Node / Tailwind / JS build tools
+node_modules/
+dist/
+build/
+.twind/
+.twind-cache/
+*.tsbuildinfo

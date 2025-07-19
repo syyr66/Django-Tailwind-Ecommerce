@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl text-center font-semibold mb-4">My Cart</h2>
+
+{% if cart %}
+<ul class="space-y-4">
+    {% for item in cart.items.all %}
+    <li class="flex items-stretch relative">
+        {% if item.product.image %}
+        <div class="w-1/6">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name}}" class="w-28">
+        </div>
+        {% endif %}
+        <div class="flex flex-col flex-grow justify-between h-full">
+            <a href="{% url 'products:product_detail' item.product.id item.product.slug %}">
+                <h3 class="font-semibold text-xl">{{ item.product.name }}</h3>
+            </a>
+            <div class="inline-block ">
+                <p class="truncate max-w-[65vw] lg:max-w-[600px]">{{ item.product.description }}</p>
+                <p>${{ item.product.price }}</p>
+                <p>Quantity: {{ item.quantity }}</p>
+            </div>
+        </div>
+        <div>
+            <form action="{% url "cart:remove_item" item.product.id %}" method="post" class="absolute inset-y-0 right-0 flex items-center">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-600 text-white rounded-[8px] p-[6px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                        <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<p class="font-semibold mt-8 text-right">Total Price: ${{cart.get_total_price}}</p>
+
+<form action="{% url "orders:order_create" %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Proceed to Checkout</button>
+</form>
+
+{% else %}
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-semibold text-md text-purple-800 flex items-center justify-center pointer-events-none">
+    Yet your cart is empty...
+</div>
+{% endif %}
+
+{% endblock %}
