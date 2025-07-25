@@ -24,10 +24,6 @@ local_settings.py
 *.pot
 *.mo
 
-#Migrations
-**/migrations/*.py
-**/migrations/*.pyc
-
 # VS Code
 .vscode/
 
